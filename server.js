@@ -11,8 +11,19 @@ app.get("/", function(req, res) {
     res.send("Inicializado Server RESTful | Porta: "+ port);
 })
 
+var uristring =
+    process.env.MONGOLAB_URI ||
+    process.env.MONGOHQ_URL ||
+    'mongodb://localhost/msgdb';
+
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/msgdb');
+mongoose.connect(uristring, function (err, res) {
+    if (err) {
+    console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+    } else {
+    console.log ('Succeeded connected to: ' + uristring);
+    }
+})
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 var routes = require('./api/routes/msgRoutes');
