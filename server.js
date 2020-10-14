@@ -10,17 +10,29 @@ app.get("/", function(req, res) {
 })
 
 app.get('/api/getPi', function(req, res, next) {
-    var Pi1 = getPi()
-    var Pi2 = getPi()
-    var Pi3 = getPi()
+    var Pi = getPi()
+    var x = Math.random() * 100
+    var codigo = 'MonteCarlo'
+    var id = 0
 
-    var Pi = [
-        { id: 1, codigo: 'MonteCarlo1', Pi: Pi1 },
-        { id: 2, codigo: 'MonteCarlo2', Pi: Pi2 }, 
-        { id: 3, codigo: 'MonteCarlo3', Pi: Pi3 }
+    if (x > 33){
+        if (x > 66){
+            codigo = 'MonteCarlo1'
+            id = 1
+        } else {
+            codigo = 'MonteCarlo2'
+            id = 2
+        }
+    } else {
+        codigo = 'MonteCarlo3'
+        id = 3
+    }
+
+    var PiCalculado = [
+        { id: id, codigo: codigo, Pi: Pi }
       ];
 
-    res.send(Pi);
+    res.send(PiCalculado);
   })
 
 app.listen(port);
