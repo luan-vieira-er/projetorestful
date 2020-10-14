@@ -3,8 +3,6 @@ var express = require('express'),
 app = express(),
 
 port = process.env.PORT || 3000;
-Message = require('./api/models/msgModel')
-bodyParser = require('body-parser')
 
 app.get("/", function(req, res) {
     console.log("Inicializado Server RESTful | Porta: "+ port + " Pi Estimado: " + getPi()) ;
