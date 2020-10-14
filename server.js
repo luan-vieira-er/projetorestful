@@ -3,19 +3,24 @@ var express = require('express'),
 app = express(),
 
 port = process.env.PORT || 3000;
-/*mongoose = require('mongoose'),
-Message = require('./api/models/msgModel'),
-bodyParser = require('body-parser');*/
+Message = require('./api/models/msgModel')
+bodyParser = require('body-parser')
 
 app.get("/", function(req, res) {
     console.log("Inicializado Server RESTful | Porta: "+ port + " Pi Estimado: " + getPi()) ;
-    res.send("Pi Estimado: " + getPi());
+    //res.send("Pi Estimado: " + getPi());
+    res.send("Inicializado Server RESTful | Porta: " + port);
 })
 
-var uristring =
-    process.env.MONGOLAB_URI ||
-    process.env.MONGOHQ_URL ||
-    'mongodb://localhost/msgdb';
+app.get('/api/getPi', function(req, res, next) {
+    res.send(Pi);
+  })
+
+var Pi = [
+    { id: 1, codigo: 'MonteCarlo', Pi: getPi() },
+    { id: 2, codigo: 'MonteCarlo', Pi: getPi() }, 
+    { id: 3, codigo: 'MonteCarlo', Pi: getPi() }
+  ];
 
 app.listen(port);
 
@@ -30,17 +35,3 @@ function getPi(){
     }
     return 4 * inside / n;
 }
-
-//MONGOOSE DEPRECATED
-/*mongoose.Promise = global.Promise;
-mongoose.connect(uristring, function (err, res) {
-    if (err) {
-    console.log ('ERROR connecting to: ' + uristring + '. ' + err);
-    } else {
-    console.log ('Succeeded connected to: ' + uristring);
-    }
-})
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-var routes = require('./api/routes/msgRoutes');
-routes(app);*/
