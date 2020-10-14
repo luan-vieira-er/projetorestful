@@ -6,19 +6,22 @@ port = process.env.PORT || 3000;
 
 app.get("/", function(req, res) {
     console.log("Inicializado Server RESTful | Porta: "+ port + " Pi Estimado: " + getPi()) ;
-    //res.send("Pi Estimado: " + getPi());
     res.send("Inicializado Server RESTful | Porta: " + port);
 })
 
 app.get('/api/getPi', function(req, res, next) {
+    var Pi1 = getPi()
+    var Pi2 = getPi()
+    var Pi3 = getPi()
+
+    var Pi = [
+        { id: 1, codigo: 'MonteCarlo1', Pi: Pi1 },
+        { id: 2, codigo: 'MonteCarlo2', Pi: Pi2 }, 
+        { id: 3, codigo: 'MonteCarlo3', Pi: Pi3 }
+      ];
+
     res.send(Pi);
   })
-
-var Pi = [
-    { id: 1, codigo: 'MonteCarlo', Pi: getPi() },
-    { id: 2, codigo: 'MonteCarlo', Pi: getPi() }, 
-    { id: 3, codigo: 'MonteCarlo', Pi: getPi() }
-  ];
 
 app.listen(port);
 
